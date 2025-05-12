@@ -26,9 +26,14 @@
         <button id="search-btn" type="button">Pesquisar</button>
       </div>
       <h1>PRODUTOS</h1>
-      <span class="material-icons icon edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
-      <a href="cadproduto.html">
-        <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
+
+      <div class="topo-right">
+        <a href="cadproduto.html" id="add-button" class="hidden">
+          <button class="icon-btn add-btn" title="Adicionar">
+            <span class="material-icons">add</span>
+          </button>
+        </a>        
+        <span class="material-icons icon edit-toggle" id="edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
         </a>
     </div>
     <div class="faixa-superior"></div>
@@ -49,6 +54,7 @@
             <tr>
               <td></td><td>P1</td><td>Pão Francês</td><td>R$ 0,50</td><td>100/Por dia</td>
               <td class="action-cell hidden">
+                
                 <div class="action-icons">
                   <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
                   <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
@@ -173,6 +179,7 @@
                 inp.value = cell.textContent;
                 cell.textContent = '';
                 cell.appendChild(inp);
+
               } else {
                 const inp = cell.querySelector('input');
                 if (inp) cell.textContent = inp.value;

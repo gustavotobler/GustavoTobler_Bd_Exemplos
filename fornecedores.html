@@ -33,24 +33,37 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-
   <header>
-    <a href="inicial1.html">
-      
-      
     <div class="topo">
-      <span class="material-icons icon">arrow_back</span>
-    </a>
-      <div class="search-container">
-        <span class="material-icons">search</span>
-        <input type="text" id="search-input" placeholder="Pesquisar...">
-        <button id="search-btn" type="button">Pesquisar</button>
+      <!-- Lado esquerdo -->
+      <div class="topo-left">
+        <a href="inicial1.html">
+          <span class="material-icons icon" title="Voltar">arrow_back</span>
+        </a>
       </div>
-      <h1>FORNECEDORES</h1>
-      <span class="material-icons icon edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
+  
+      <!-- Centro -->
+      <div class="topo-center">
+        <h1>FORNECEDORES</h1>
+        <div class="search-container">
+          <span class="material-icons">search</span>
+          <input type="text" id="search-input" placeholder="Pesquisar...">
+          <button id="search-btn" type="button">Pesquisar</button>
+        </div>
+      </div>
+  
+      <!-- Lado direito -->
+      <div class="topo-right">
+        <a href="cadforn.html" id="add-button" class="hidden">
+          <button class="icon-btn add-btn" title="Adicionar">
+            <span class="material-icons">add</span>
+          </button>
+        </a>
+        <span class="material-icons icon edit-toggle" id="edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
+      </div>
     </div>
-    <div class="faixa-superior"></div>
   </header>
+  
 
   <main>
     <table>
@@ -71,12 +84,8 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
-            </div>
           </td>
         </tr>
-      </a>
         <tr>
           <td>FR02</td><td>BOLOS MAIDEN</td><td>Bolos, açúcares...</td><td>08/03/2025</td>
           <td class="action-cell hidden">
@@ -84,12 +93,9 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
             </div>
           </td>
         </tr>
-      </a>
         <tr>
           <td>FR03</td><td>DOCES MARIAS</td><td>Leite condensado</td><td>28/03/2025</td>
           <td class="action-cell hidden">
@@ -97,12 +103,8 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
-            </div>
           </td>
         </tr>
-      </a>
         <tr>
           <td>FR04</td><td>DONA BENTA</td><td>Chocolates, tortas...</td><td>08/03/2025</td>
           <td class="action-cell hidden">
@@ -110,15 +112,12 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </main>
-</a>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -127,13 +126,18 @@
       const tableBody = document.getElementById('supplier-table-body');
       const searchBtn = document.getElementById('search-btn');
       const searchInput = document.getElementById('search-input');
-
+      const addButton = document.getElementById('add-button');
+  
       const getActionCells = () => document.querySelectorAll('td.action-cell');
+  
+      // Alterna a visibilidade das ações (Edit, Delete) e o botão "Adicionar"
       toggleBtn.addEventListener('click', () => {
         actionHeader.classList.toggle('hidden');
         getActionCells().forEach(td => td.classList.toggle('hidden'));
+        addButton.classList.toggle('hidden'); // Alterna a visibilidade do botão de adicionar
       });
-
+  
+      // Função de busca
       function doSearch() {
         const term = searchInput.value.trim().toLowerCase();
         Array.from(tableBody.rows).forEach(row => {
@@ -145,10 +149,11 @@
           if (cell) cell.classList.toggle('hidden', !match || actionHeader.classList.contains('hidden'));
         });
       }
-
+  
       searchBtn.addEventListener('click', doSearch);
       searchInput.addEventListener('input', doSearch);
-
+  
+      // Função para editar a linha
       function bindActions() {
         document.querySelectorAll('.edit-btn').forEach(btn => {
           btn.onclick = () => {
@@ -160,38 +165,41 @@
             for (let i = 0; i < numCols; i++) {
               const cell = row.cells[i];
               if (editing) {
-                const inp = document.createElement('input'); inp.type = 'text'; inp.value = cell.textContent; cell.textContent = ''; cell.appendChild(inp);
+                const inp = document.createElement('input');
+                inp.type = 'text';
+                inp.value = cell.textContent;
+                cell.textContent = '';
+                cell.appendChild(inp);
               } else {
-                const inp = cell.querySelector('input'); if (inp) cell.textContent = inp.value;
+                const inp = cell.querySelector('input');
+                if (inp) cell.textContent = inp.value;
               }
             }
           };
         });
-
+  
+        // Função para excluir a linha
         document.querySelectorAll('.delete-btn').forEach(btn => {
           btn.onclick = () => {
             const row = btn.closest('tr');
-            row.classList.add('disabled-row'); // Aplicando a cor escura à linha desativada
-
+            row.classList.add('disabled-row'); // Aplica a cor escura à linha desativada
             const deleteBtn = row.querySelector('.delete-btn');
             const undoBtn = row.querySelector('.undo-btn');
-
-            // Substituir o ícone de delete pela seta de undo
-            deleteBtn.style.display = 'none'; 
-            undoBtn.style.display = 'inline-block'; // Mostrar o botão de "undo" (seta)
-
+  
+            deleteBtn.style.display = 'none';
+            undoBtn.style.display = 'inline-block'; // Exibe o botão de "undo"
+  
             undoBtn.onclick = () => {
-              row.classList.remove('disabled-row'); // Reverter a linha para seu estado original
-              deleteBtn.style.display = 'inline-block'; // Mostrar novamente o botão de delete
-              undoBtn.style.display = 'none'; // Esconder o botão de "undo"
+              row.classList.remove('disabled-row');
+              deleteBtn.style.display = 'inline-block';
+              undoBtn.style.display = 'none';
             };
           };
         });
-
-
-          };
-        });
+      }
+  
       bindActions();
+    });
   </script>
 
 </body>

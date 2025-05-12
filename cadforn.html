@@ -129,6 +129,15 @@
   </style>
 </head>
 <body>
+  <script>
+    // Bloqueia acesso se não for admin
+    const nivel = localStorage.getItem("nivel_usuario");
+    if (nivel !== "admin") {
+      alert("Acesso restrito! Apenas administradores podem acessar esta página.");
+      window.location.href = "inicial2.html"; // ou página de acesso negado
+    }
+  </script>
+  
   <div class="page">
     <a href="fornecedores.html">
     <button class="back-button"><span class="material-icons">arrow_back</span></button>

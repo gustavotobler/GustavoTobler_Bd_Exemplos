@@ -25,6 +25,51 @@
 	<footer>
 		Copyright &copy; Alemões
     </footer>
+
+	
+	<script>
+		document.getElementById("form").addEventListener("submit", function(event) {
+		  event.preventDefault(); // evita o envio padrão do formulário
+	  
+		  const email = document.getElementById("email").value.toLowerCase();
+		  const senha = document.getElementById("senha").value;
+	  
+		  // Mapeamento de funcionários com base no nome
+		  const funcionarios = [
+			{ nome: 'Peter Parker', email: 'peterparker@padaria.com', senha: 'atendente123' },
+			{ nome: 'Matue', email: 'matue@padaria.com', senha: 'atendente123' },
+			{ nome: 'Sergio Luiz', email: 'sergioluiz@padaria.com', senha: 'padeiro123' },
+			{ nome: 'Mbappe', email: 'mbappe@padaria.com', senha: 'padeiro123' },
+			{ nome: 'Tony Stark', email: 'tonystark@padaria.com', senha: 'caixa123' },
+			{ nome: 'Tim Maia', email: 'timmaia@padaria.com', senha: 'caixa123' },
+			{ nome: 'Kerry King', email: 'kerryking@padaria.com', senha: 'admin123' } // único admin
+		  ];
+	  
+		  // Procura o funcionário pelo email
+		  const usuario = funcionarios.find(f => f.email === email && f.senha === senha);
+	  
+		  if (usuario) {
+  // Salvar o nível no localStorage
+  const nivel = usuario.nome === 'Kerry King' ? 'admin' : 'funcionario';
+  localStorage.setItem("nivel_usuario", nivel);
+
+  if (nivel === "admin") {
+    window.location.href = "inicial1.html";
+  } else {
+    window.location.href = "inicial2.html";
+  }
+}
+ else {
+			alert("Email ou senha inválidos.");
+		  }
+		});
+	  </script>
+	  
+	
+	</body> 
+	</html>
+	
 		</body> 
+
 		</html>
 		

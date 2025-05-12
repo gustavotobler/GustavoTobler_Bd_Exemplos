@@ -37,6 +37,7 @@ body {
                    background-color: #6b6b6b;
                    color: white;
                    font-size: 10px;
+				   margin-top:15px ;
                    border: none;
                    border-radius: 6px;
                    cursor: pointer;
@@ -127,10 +128,39 @@ nav .opcao {
 					border-radius: 6px;
 					transition: background-color 0.3s ease;
 				  }
+	#esqueceu-senha{
+		font-size: 12px;
+		text-align:right;
+		margin-top: 10px;
+		color:black;
+		margin-right: 0px;
+		display: block;
+	}
+     #email{
+		width:140px;
+        height:11px;
+		border-radius: 2px;
+		border:#ffffff
+		
+	 }
 
+	 #senha{
+		border-radius: 2px;
+		font-size: 10px;
+	 }
+    #Entrar{
+     font-size: 12px;
+	}
 			          
 nav .opcao:hover{
 background-color:#737171;
+}
+
+form h1{
+
+	font-size:15px;
+	line-height:1.5;
+	margin-top: 10px;
 }
 
 
@@ -143,6 +173,8 @@ table {
 	box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 	background-color: #9b9b9b;
 }
+
+
 
 
 

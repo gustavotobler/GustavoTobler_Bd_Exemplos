@@ -35,15 +35,32 @@
 <body>
   <header>
     <div class="topo">
-      <span class="material-icons icon">arrow_back</span>
-    </a>
-      <div class="search-container">
-        <span class="material-icons">search</span>
-        <input type="text" id="search-input" placeholder="Pesquisar...">
-        <button id="search-btn" type="button">Pesquisar</button>
+      <!-- Lado esquerdo -->
+      <div class="topo-left">
+        <a href="inicial1.html">
+          <span class="material-icons icon" title="Voltar">arrow_back</span>
+        </a>
       </div>
-      <h1>FORNECEDORES</h1>
-      <span class="material-icons icon edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
+  
+      <!-- Centro -->
+      <div class="topo-center">
+        <h1>FORNECEDORES</h1>
+        <div class="search-container">
+          <span class="material-icons">search</span>
+          <input type="text" id="search-input" placeholder="Pesquisar...">
+          <button id="search-btn" type="button">Pesquisar</button>
+        </div>
+      </div>
+  
+      <!-- Lado direito -->
+      <div class="topo-right">
+        <a href="cadforn.html" id="add-button" class="hidden">
+          <button class="icon-btn add-btn" title="Adicionar">
+            <span class="material-icons">add</span>
+          </button>
+        </a>
+        <span class="material-icons icon edit-toggle" id="edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
+      </div>
     </div>
   </header>
   
@@ -67,9 +84,6 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
-            </div>
           </td>
         </tr>
         <tr>
@@ -79,8 +93,6 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
             </div>
           </td>
         </tr>
@@ -91,9 +103,6 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
-            </div>
           </td>
         </tr>
         <tr>
@@ -103,8 +112,6 @@
               <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
               <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
               <button class="undo-btn"><span class="material-icons">undo</span></button>
-              <a href="cadforn.html">
-              <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
             </div>
           </td>
         </tr>

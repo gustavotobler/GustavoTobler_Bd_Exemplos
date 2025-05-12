@@ -124,9 +124,26 @@ body {
 .edit-toggle:hover {
   color: #343a40;
 }
-.hidden {
-  display: none !important;
+.hidden { display: none !important; }
+
+.disabled-row {
+  background-color: #a9a9a9;
+  color: #666;
 }
+
+.disabled-row input {
+  background: #d3d3d3;
+  color: #aaa;
+  border: none;
+}
+
+.undo-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 
 /* Conteúdo principal e tabela */
 main {

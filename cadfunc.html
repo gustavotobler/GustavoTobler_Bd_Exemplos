@@ -143,7 +143,8 @@
     }
   </style>
 </head>
-<body>
+
+
   <div class="container">
     <div class="header">
         <a href="funcionarios.html">
@@ -196,5 +197,12 @@
       </div>
     </form>
   </div>
+  <script>
+  const nivel = localStorage.getItem("nivel_usuario");
+  if (nivel !== "admin") {
+    document.querySelectorAll(".botao-cadastro").forEach(btn => btn.style.display = "none");
+  }
+</script>
+
 </body>
 </html>

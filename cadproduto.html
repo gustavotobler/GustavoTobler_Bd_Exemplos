@@ -119,6 +119,15 @@
   </style>
 </head>
 <body>
+  <script>
+    const nivel = localStorage.getItem("nivel_usuario");
+    if (nivel !== "admin") {
+      alert("Acesso restrito! Apenas administradores podem acessar esta página.");
+      window.location.href = "inicial2.html";
+    }
+  </script>
+  
+  
   <div class="page">
     <div class="form-box">
         <a href="produtos.html">

@@ -5,21 +5,51 @@
   <title>Produtos</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/site3.css" rel="stylesheet">
+  <style>
+    .hidden { display: none !important; }
+
+    .disabled-row {
+      background-color: #a9a9a9;
+      color: #666;
+    }
+
+    .disabled-row input {
+      background: #d3d3d3;
+      color: #aaa;
+      border: none;
+    }
+
+    .undo-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="topo">
-      <span class="material-icons icon">arrow_back</span>
-    </a>
-      <div class="search-container">
-        <span class="material-icons">search</span>
-        <input type="text" id="search-input" placeholder="Pesquisar...">
-        <button id="search-btn" type="button">Pesquisar</button>
+      <div class="topo-left">
+        <a href="inicial1.html">
+          <span class="material-icons icon" title="Voltar">arrow_back</span>
+        </a>
       </div>
-      <h1>PRODUTOS</h1>
-      <span class="material-icons icon edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
-      <a href="cadproduto.html">
-        <button class="icon-btn add-btn"><span class="material-icons">add</span></button>
+
+      <div class="topo-center">
+        <h1>PRODUTOS</h1>
+        <div class="search-container">
+          <span class="material-icons">search</span>
+          <input type="text" id="search-input" placeholder="Pesquisar...">
+          <button id="search-btn" type="button">Pesquisar</button>
+        </div>
+      </div>
+
+      <div class="topo-right">
+        <a href="cadproduto.html" id="add-button" class="hidden">
+          <button class="icon-btn add-btn" title="Adicionar">
+            <span class="material-icons">add</span>
+          </button>
         </a>
         <span class="material-icons icon edit-toggle" id="edit-toggle" title="Mostrar/Ocultar Ações">edit</span>
       </div>
@@ -37,91 +67,88 @@
           <th>Quantidade</th>
           <th class="action-header hidden">Ações</th>
         </tr>
-        <tbody id="supplier-table-body">
-            <tr>
-              <td></td><td>P1</td><td>Pão Francês</td><td>R$ 0,50</td><td>100/Por dia</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td><td>P2</td><td>Pão integral</td><td>R$ 6,00</td><td>62</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>FR02</td><td>P3</td><td>Bolo de Chocolate</td><td>R$ 12,00</td><td>15</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>FR02</td><td>P4</td><td>Bolo de morango</td><td>R$ 14,00</td><td>35</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>FR02</td><td>P5</td><td>Bolo de abacaxi</td><td>R$ 15,00</td><td>27</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td><td>P6</td><td>Cuca de banana</td><td>R$ 10,00</td><td>40</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td><td>P8</td><td>Rosca doce</td><td>R$ 5,00</td><td>53</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td><td>P9</td><td>Orelha de gato</td><td>R$ 19,00/KG</td><td>20</td>
-              <td class="action-cell hidden">
-                <div class="action-icons">
-                  <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
-                  <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
-
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          
       </thead>
       <tbody id="supplier-table-body">
-        <!-- Conteúdo da tabela -->
-        <!-- Mantido como está -->
+        <tr>
+          <td>Serviço próprio</td><td>P1</td><td>Pão Francês</td><td>R$ 0,50</td><td>100/Por dia</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Serviço próprio</td><td>P2</td><td>Pão integral</td><td>R$ 6,00</td><td>62</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>FR02</td><td>P3</td><td>Bolo de Chocolate</td><td>R$ 12,00</td><td>15</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>FR02</td><td>P4</td><td>Bolo de morango</td><td>R$ 14,00</td><td>35</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>FR02</td><td>P5</td><td>Bolo de abacaxi</td><td>R$ 15,00</td><td>27</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Serviço próprio</td><td>P6</td><td>Cuca de banana</td><td>R$ 10,00</td><td>40</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Serviço próprio</td><td>P8</td><td>Rosca doce</td><td>R$ 5,00</td><td>53</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Serviço próprio</td><td>P9</td><td>Orelha de gato</td><td>R$ 19,00/KG</td><td>20</td>
+          <td class="action-cell hidden">
+            <div class="action-icons">
+              <button class="icon-btn edit-btn"><span class="material-icons">edit</span></button>
+              <button class="icon-btn delete-btn"><span class="material-icons">delete</span></button>
+              <button class="icon-btn undo-btn"><span class="material-icons">undo</span></button>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>
@@ -170,7 +197,6 @@
                 inp.value = cell.textContent;
                 cell.textContent = '';
                 cell.appendChild(inp);
-
               } else {
                 const inp = cell.querySelector('input');
                 if (inp) cell.textContent = inp.value;

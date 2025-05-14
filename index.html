@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>	
-	     <meta charset="UTF-8">
-		 <title> Padaria do alemão</title>
-		 <link rel="stylesheet" type="text/css" href="css/site.css"/>
-    </head>
-	    <body bgcolor="grey">
-		       <header>
-				<h1>LOGIN</h1>
-				<img src="img/Logopadaria.png" title ='logo'/>
-			   </header>
-			 <main>
-			   <FORM ID="form">
-				<form name="frmlogin" method="get"  action="#">
-					 <div class="Login"> 
-						      <label for="E-mail">E-mail:</label>
-							  <input type="text" name="txtemail" id="email" class="inputs required">
-							  <label for="Senha">Senha:</label>
-							  <input type="text" name="txtsenha" id="senha" class="inputs required">
-                              <a href="login/recuperar_senha/RECUP_SENHA.html" class="inputs esqueceu-senha"id="esqueceu-senha">Esqueceu senha?</a>
-							  <button type="submit" id="Entrar">Entrar</button>
-							  </div>
-							</main>
-	<footer>
-		Copyright &copy; Alemões
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padaria do Alemão - Login</title>
+    <link rel="stylesheet" type="text/css" href="css/site.css">
+</head>
+<body>
+
+    <header>
+        <h1>LOGIN</h1>
+        <img src="img/Logopadaria.png" title="Logo Padaria" alt="Logo da Padaria">
+    </header>
+
+    <main>
+        <form id="form">
+            <label for="email">E-mail:</label>
+            <input type="text" name="txtemail" id="email" class="inputs required" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Entrar</button>
+
+            <a href="RECUP_SENHA.html" class="esqueceu-senha" id="esqueceu-senha">Esqueceu a senha?</a>
+        </form>
+    </main>
+
+    <footer>
+		<div class ="fonte">
+        <strong>Copyright &copy; Alemões</strong>
+		</div>
     </footer>
 
-	
-	<script>
-		document.getElementById("form").addEventListener("submit", function(event) {
-		  event.preventDefault(); // evita o envio padrão do formulário
-	  
-		  const email = document.getElementById("email").value.toLowerCase();
-		  const senha = document.getElementById("senha").value;
-	  
-		  // Mapeamento de funcionários com base no nome
-		  const funcionarios = [
-			{ nome: 'Peter Parker', email: 'peterparker@padaria.com', senha: 'atendente123' },
-			{ nome: 'Matue', email: 'matue@padaria.com', senha: 'atendente123' },
-			{ nome: 'Sergio Luiz', email: 'sergioluiz@padaria.com', senha: 'padeiro123' },
-			{ nome: 'Mbappe', email: 'mbappe@padaria.com', senha: 'padeiro123' },
-			{ nome: 'Tony Stark', email: 'tonystark@padaria.com', senha: 'caixa123' },
-			{ nome: 'Tim Maia', email: 'timmaia@padaria.com', senha: 'caixa123' },
-			{ nome: 'Kerry King', email: 'kerryking@padaria.com', senha: 'admin123' } // único admin
-		  ];
-	  
-		  // Procura o funcionário pelo email
-		  const usuario = funcionarios.find(f => f.email === email && f.senha === senha);
-	  
-		  if (usuario) {
-  // Salvar o nível no localStorage
-  const nivel = usuario.nome === 'Kerry King' ? 'admin' : 'funcionario';
-  localStorage.setItem("nivel_usuario", nivel);
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault(); // evita o envio padrão do formulário
 
-  if (nivel === "admin") {
-    window.location.href = "inicial1.html";
-  } else {
-    window.location.href = "inicial2.html";
-  }
-}
- else {
-			alert("Email ou senha inválidos.");
-		  }
-		});
-	  </script>
-	  
-	
-	</body> 
-	</html>
-	
-		</body> 
+            const email = document.getElementById("email").value.toLowerCase();
+            const senha = document.getElementById("senha").value;
 
-		</html>
-		
+            const funcionarios = [
+                { nome: 'Peter Parker', email: 'peterparker@padaria.com', senha: 'atendente123' },
+                { nome: 'Matue', email: 'matue@padaria.com', senha: 'atendente123' },
+                { nome: 'Sergio Luiz', email: 'sergioluiz@padaria.com', senha: 'padeiro123' },
+                { nome: 'Mbappe', email: 'mbappe@padaria.com', senha: 'padeiro123' },
+                { nome: 'Tony Stark', email: 'tonystark@padaria.com', senha: 'caixa123' },
+                { nome: 'Tim Maia', email: 'timmaia@padaria.com', senha: 'caixa123' },
+                { nome: 'Kerry King', email: 'kerryking@padaria.com', senha: 'admin123' }
+            ];
+
+            const usuario = funcionarios.find(f => f.email === email && f.senha === senha);
+
+            if (usuario) {
+                const nivel = usuario.nome === 'Kerry King' ? 'admin' : 'funcionario';
+                localStorage.setItem("nivel_usuario", nivel);
+
+                if (nivel === "admin") {
+                    window.location.href = "inicial1.html";
+                } else {
+                    window.location.href = "inicial2.html";
+                }
+            } else {
+                alert("Email ou senha inválidos.");
+            }
+        });
+    </script>
+
+</body>
+</html>

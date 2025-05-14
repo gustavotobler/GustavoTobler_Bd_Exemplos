@@ -67,5 +67,33 @@
       </tbody>
     </table>
   </main>
+  <script>
+    document.getElementById('search-btn').addEventListener('click', function () {
+      const input = document.getElementById('search-input').value.toUpperCase();
+      const rows = document.querySelectorAll('#supplier-table-body tr');
+  
+      rows.forEach(row => {
+        const cells = row.getElementsByTagName('td');
+        let match = false;
+  
+        for (let i = 0; i < cells.length; i++) {
+          if (cells[i].textContent.toUpperCase().includes(input)) {
+            match = true;
+            break;
+          }
+        }
+  
+        row.style.display = match ? '' : 'none';
+      });
+    });
+  
+    // Permitir buscar ao apertar Enter
+    document.getElementById('search-input').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        document.getElementById('search-btn').click();
+      }
+    });
+  </script>
+  
 </body>
 </html>

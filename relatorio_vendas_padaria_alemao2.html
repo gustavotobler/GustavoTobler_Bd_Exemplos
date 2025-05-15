@@ -241,7 +241,7 @@ document.getElementById(id).classList.add('active');
 
        
         const totalPages = Math.ceil(filteredIndices.length/rowsPerPage) || 1;
-        if(currentPage>totalPages) currentPage = totalPages;
+        if(currentPage>totalPages) currentPage = totalPages; 
 
         document.querySelectorAll('#tabela tbody tr').forEach((row, idx) => {
             const pos = filteredIndices.indexOf(idx);

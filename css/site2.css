@@ -42,7 +42,6 @@ body::before {
   --hover-bg: #444;
   --main-bg: #f0f0f0;
   --card-bg: #fff;
-  --accent: #3f3f3f;
   --highlight: #e0f7ff;
 }
 * { box-sizing: border-box; }

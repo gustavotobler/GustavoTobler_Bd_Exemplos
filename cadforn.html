@@ -130,12 +130,80 @@
 </head>
 <body>
   <script>
+
+
+function formattelefone(input) {
+      let v = input.value.replace(/\D/g, '').slice(0,11);
+      if (v.length <= 10) {
+        if (v.length > 6) {
+          v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (v.length > 2) {
+          v = v.replace(/(\d{2})(\d{0,4})/, '($1) $2');
+        }
+      } else {
+        v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+      }
+      input.value = v;
+    }
+
     // Bloqueia acesso se não for admin
     const nivel = localStorage.getItem("nivel_usuario");
     if (nivel !== "admin") {
       alert("Acesso restrito! Apenas administradores podem acessar esta página.");
       window.location.href = "inicial1.html"; // ou página de acesso negado
     }
+
+ src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"
+    
+      // Aplica a máscara ao campo CNPJ
+  Inputmask("99.999.999/9999-99").mask(document.getElementById("cnpj"));
+
+function validarcnpj(cnpj) {
+  cnpj = cnpj.replace(/[^\d]+/g, '');
+
+  if (cnpj === '') return false;
+  if (cnpj.length !== 14) return false;
+  if (/^(\d)\1+$/.test(cnpj)) return false;
+
+  let tamanho = cnpj.length - 2;
+  let numeros = cnpj.substring(0, tamanho);
+  let digitos = cnpj.substring(tamanho);
+  let soma = 0;
+  let pos = tamanho - 7;
+
+  for (let i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
+    if (pos < 2) pos = 9;
+  }
+
+  let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado !== parseInt(digitos.charAt(0))) return false;
+
+  tamanho += 1;
+  numeros = cnpj.substring(0, tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+
+  for (let i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
+    if (pos < 2) pos = 9;
+  }
+
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  return resultado === parseInt(digitos.charAt(1));
+}
+
+// Validação ao enviar o formulário
+document.querySelector("form").addEventListener("submit", function (e) {
+  const cnpjInput = document.getElementById("cnpj");
+  const cnpj = cnpjInput.value;
+
+  if (!validarcnpj(cnpj)) {
+    e.preventDefault();
+    alert("CNPJ inválido. Por favor, verifique o número informado.");
+    cnpjInput.focus();
+  }
+});
   </script>
   
   <div class="page">
@@ -181,15 +249,15 @@
 
         <div class="section-title">FORMAS DE CONTATO</div>
 
-        <div class="row">
-          <div class="input-group">
-            <label for="email">EMAIL</label>
-            <input type="email" id="email" name="email">
-          </div>
-          <div class="input-group">
-            <label for="telefone">TELEFONE</label>
-            <input type="text" id="telefone" name="telefone">
-          </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder="EMAIL" required>
+          <input type="text"
+                 id="telefone"
+                 name="telefone"
+                 placeholder="(00) 00000-0000"
+                 oninput="formatTelefone(this)"
+                 maxlength="15"
+                 required>
         </div>
 
         <div class="btn-container">

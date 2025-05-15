@@ -2,27 +2,29 @@
 <html lang="pt-br">
 <head>  
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recuperar Senha</title>
-  <link rel="stylesheet" type="text/css" href="css/site.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/site.css">
 </head>
-<body bgcolor="grey">
-   <style>
-    
-   </style>
+<body>
+
   <header>
+    <a href="index.html">
+      <button class="back-button"><span class="material-icons">arrow_back</span></button>
+      </a>
     <h1>RECUPERAR SENHA</h1>
-    <img src="img/Logopadaria.png" title="logo"/>
+    <img src="img/Logopadaria.png" alt="Logo da Padaria" title="Logo">
   </header>
 
   <main>
     <form id="form" name="frmRecupera" method="get" action="#">
-      <div class="Login">
-       <h1>
-          CASO TENHA ESQUECIDO SUA SENHA, PREENCHA SEU E‑MAIL
-          PARA ENVIARMOS UM CÓDIGO DE RECUPERAÇÃO
-        </h1>
-        <strong><label for="email">E‑mail:</label></strong>
-        <input type="email" name="txtemail" id="email" class="inputs required">
+      <div class="login">
+        <h2>CASO TENHA ESQUECIDO SUA SENHA, PREENCHA SEU E‑MAIL PARA ENVIARMOS UM CÓDIGO DE RECUPERAÇÃO</h2>
+
+        <label for="email"><strong>E‑mail:</strong></label>
+        <input type="email" name="txtemail" id="email" class="inputs required" required>
+
         <button type="submit">Enviar</button>
       </div>
     </form>

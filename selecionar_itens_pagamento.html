@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vender UI</title>
+  <style>
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Layout principal */
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Área de produtos */
+    .product-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .controls {
+      display: flex;
+      gap: .5rem;
+    }
+    .controls input[type="text"] {
+      flex: 1;
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .controls select, .controls button {
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: .5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card .info h4 {
+      font-size: .9rem;
+      margin-bottom: .5rem;
+    }
+    .card .info .price {
+      font-weight: bold;
+      color: #2a9d8f;
+    }
+
+    /* Sidebar do carrinho */
+    .sidebar {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+    }
+    .sidebar h3 {
+      margin-bottom: 1rem;
+    }
+    .cart-items {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+    }
+    .cart-item span:first-child { flex: 1; }
+    .totals {
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    .totals div { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+    .btn-pay {
+      display: block;
+      width: 100%;
+      padding: .75rem;
+      background: #2a9d8f;
+      color: white;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Painel de Produtos -->
+    <section class="product-panel">
+      <div class="controls">
+        <input type="text" placeholder="Nome ou código">
+        <select>
+          <option value="all">Todas categorias</option>
+        </select>
+        <button>🔄</button>
+        <button>⚡</button>
+      </div>
+      <div class="grid">
+
+        <div class="card">
+          <img src="img/pixlr-image-generator-c21283c6-8475-4327-beb4-ba948ccf3526.png">
+          <div class="info">
+            <h4>Café Expresso</h4>
+            <span class="price">R$ 5,00</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/pixlr-image-generator-7d899fcb-bd77-4588-91ef-3f9aa67b0f95.png">
+          <div class="info">
+            <h4>Café Ao Leite</h4>
+            <span class="price">R$ 4,00</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/pixlr-image-generator-a434292a-580e-4b41-97da-993174cffbb4.png">
+          <div class="info">
+            <h4>Café Americano</h4>
+            <span class="price">R$ 4,00</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/pixlr-image-generator-d82c58d6-8009-4456-94c1-940ab4741b1d.png">
+          <div class="info">
+            <h4>Café Latte</h4>
+            <span class="price">R$ 5,00</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/pao frances.jpg">
+          <div class="info">
+            <h4>Pão Francês</h4>
+            <span class="price">R$ 17,99 kg</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/pão massinha.jpg">
+          <div class="info">
+            <h4>Pão Massinha</h4>
+            <span class="price">R$ 20,99 kg</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/paofatiado.avif">
+          <div class="info">
+            <h4>Pão Fatiado</h4>
+            <span class="price">R$ 7,99</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="img/pao australiano.webp">
+        <div class="info">
+          <h4>Pão Australiano</h4>
+          <span class="price">R$ 8,99</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="img/bolochocolate.png">
+        <div class="info">
+          <h4>Bolo Chocolate (Fatia)</h4>
+          <span class="price">R$ 9,00</span>
+        </div>
+        </div>
+        <div class="card">
+          <img src="img/bolomorango.png">
+          <div class="info">
+            <h4>Bolo Morango (Fatia)</h4>
+            <span class="price">R$ 9,00</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="">
+          <div class="info">
+            <h4></h4>
+            <span class="price">R$ 9,00</span>
+          </div>
+    </section>
+
+    <!-- Sidebar do Carrinho -->
+    <aside class="sidebar">
+      <h3>Carrinho</h3>
+      <div class="cart-items">
+        <div class="cart-item"><span>1x Café com leite</span><span>R$ 5,35</span></div>
+        <div class="cart-item"><span>3x Cookies chocolate</span><span>R$ 12,00</span></div>
+        <div class="cart-item"><span>1x Suco morango</span><span>R$ 6,00</span></div>
+      </div>
+      <div class="totals">
+        <div><span>Subtotal:</span><span>R$ 23,35</span></div>
+        <div><span>Taxa balcão:</span><span>R$ 10,00</span></div>
+      </div>
+      <div class="btn-pay">Ir para pagamento →</div>
+    </aside>
+
+  </div>
+</body>
+</html>

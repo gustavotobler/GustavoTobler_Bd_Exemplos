@@ -141,6 +141,94 @@
       border-color: #e55353 !important;
       background-color: #fee2e2;
     }
+
+
+    .mensagem-erro {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  color: #6c757d;
+  border: 1px solid #ffffff62;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: none;
+  max-width: 400px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.mensagem-erro strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.mensagem-erro ul {
+  padding-left: 20px;
+}
+
+.mensagem-erro button {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border: none;
+  background-color: #808d8b00;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mensagem-sucesso {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  z-index: 10000;
+  display: none;
+  animation: fadeInScale 0.4s ease-in-out;
+}
+
+.mensagem-sucesso img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translate(-50%, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+.botao-ok {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.botao-ok:hover {
+  background-color: #218838;
+}
+
+
   </style>
 </head>
 <body>
@@ -199,20 +287,99 @@
       </div>
     </form>
   </div>
+    
+  <div class="mensagem-erro" id="erro-senha">
+    <strong>Senha inválida! Ela deve conter:</strong>
+    <ul id="lista-erros"></ul>
+    <button onclick="fecharErro()">Fechar</button>
+  </div>
 
+
+  <div class="mensagem-sucesso" id="sucesso-cadastro">
+    <img src="img/confirmado.png" alt="Cadastro realizado com sucesso">
+    <div style="text-align: center; margin-top: 15px;">
+      <button onclick="fecharSucesso()" class="botao-ok">OK</button>
+    </div>
+  </div>
+  
+  
+  
   <script>
     function validarSenha(senha) {
-      const temMaiuscula = /[A-Z]/.test(senha);
-      const temMinuscula = /[a-z]/.test(senha);
-      const temNumero = /[0-9]/.test(senha);
-      const temEspecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(senha);
-      const tamanhoMinimo = senha.length >= 6;
-
-      return temMaiuscula && temMinuscula && temNumero && temEspecial && tamanhoMinimo;
+      const erros = [];
+      if (senha.length < 6) erros.push("• Mínimo 6 caracteres");
+      if (!/[A-Z]/.test(senha)) erros.push("• Pelo menos 1 letra maiúscula");
+      if (!/[a-z]/.test(senha)) erros.push("• Pelo menos 1 letra minúscula");
+      if (!/[0-9]/.test(senha)) erros.push("• Pelo menos 1 número");
+      if (!/[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]/.test(senha)) erros.push("• Pelo menos 1 caractere especial");
+      return erros;
     }
-
+  
+    function fecharErro() {
+      document.getElementById('erro-senha').style.display = 'none';
+    }
+  
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/\D/g, '');
+      if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  
+      let soma = 0;
+      for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let resto = (soma * 10) % 11;
+      if (resto === 10) resto = 0;
+      if (resto !== parseInt(cpf.charAt(9))) return false;
+  
+      soma = 0;
+      for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10) resto = 0;
+      return resto === parseInt(cpf.charAt(10));
+    }
+  
+    document.getElementById('cadastro-funcionario').addEventListener('submit', function(e) {
+      const inputCpf = document.getElementById('cpf');
+      const inputSenha = document.getElementById('senha');
+      const listaErros = document.getElementById('lista-erros');
+  
+      // Limpa erros anteriores
+      inputCpf.classList.remove('cpf-erro');
+      inputSenha.classList.remove('senha-erro');
+      listaErros.innerHTML = '';
+      document.getElementById('erro-senha').style.display = 'none';
+  
+      // Validação do CPF
+      if (!validarCPF(inputCpf.value)) {
+        inputCpf.classList.add('cpf-erro');
+        alert('CPF inválido! Verifique o número antes de cadastrar.');
+        inputCpf.focus();
+        e.preventDefault();
+        return;
+      }
+  
+      // Validação da senha
+      const errosSenha = validarSenha(inputSenha.value);
+      if (errosSenha.length > 0) {
+        inputSenha.classList.add('senha-erro');
+        listaErros.innerHTML = errosSenha.map(e => `<li>${e}</li>`).join('');
+        document.getElementById('erro-senha').style.display = 'block';
+        e.preventDefault();
+        return;
+      }
+  
+      // Exibe mensagem de sucesso
+      e.preventDefault(); // Remova isso se for enviar ao backend
+      document.getElementById('sucesso-cadastro').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('sucesso-cadastro').style.display = 'none';
+      }, 3000);
+    });
+  
     function formatCPF(input) {
-      let v = input.value.replace(/\D/g, '').slice(0,11);
+      let v = input.value.replace(/\D/g, '').slice(0, 11);
       if (v.length > 9) {
         v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
       } else if (v.length > 6) {
@@ -222,9 +389,9 @@
       }
       input.value = v;
     }
-
+  
     function formatRG(input) {
-      let v = input.value.replace(/\D/g, '').slice(0,10);
+      let v = input.value.replace(/\D/g, '').slice(0, 10);
       if (v.length > 9) {
         v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
       } else if (v.length > 6) {
@@ -234,9 +401,9 @@
       }
       input.value = v;
     }
-
+  
     function formatTelefone(input) {
-      let v = input.value.replace(/\D/g, '').slice(0,11);
+      let v = input.value.replace(/\D/g, '').slice(0, 11);
       if (v.length <= 10) {
         if (v.length > 6) {
           v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
@@ -249,51 +416,12 @@
       input.value = v;
     }
 
-    function validarCPF(cpf) {
-      cpf = cpf.replace(/\D/g, '');
-      if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    function fecharSucesso() {
+  document.getElementById('sucesso-cadastro').style.display = 'none';
+  document.getElementById('cadastro-funcionario').reset();
+}
 
-      let soma = 0;
-      for (let i = 0; i < 9; i++) {
-        soma += parseInt(cpf.charAt(i)) * (10 - i);
-      }
-      let resto = (soma * 10) % 11;
-      if (resto === 10) resto = 0;
-      if (resto !== parseInt(cpf.charAt(9))) return false;
-
-      soma = 0;
-      for (let i = 0; i < 10; i++) {
-        soma += parseInt(cpf.charAt(i)) * (11 - i);
-      }
-      resto = (soma * 10) % 11;
-      if (resto === 10) resto = 0;
-      return resto === parseInt(cpf.charAt(10));
-    }
-
-    document.getElementById('cadastro-funcionario').addEventListener('submit', function(e) {
-      const inputCpf = document.getElementById('cpf');
-      const inputSenha = document.getElementById('senha');
-
-      // Remove classes de erro anteriores
-      inputCpf.classList.remove('cpf-erro');
-      inputSenha.classList.remove('senha-erro');
-
-      if (!validarCPF(inputCpf.value)) {
-        inputCpf.classList.add('cpf-erro');
-        alert('CPF inválido! Verifique o número antes de cadastrar.');
-        inputCpf.focus();
-        e.preventDefault();
-        return;
-      }
-
-      if (!validarSenha(inputSenha.value)) {
-        inputSenha.classList.add('senha-erro');
-        alert('Senha inválida! Ela deve conter:\n\n- Mínimo 6 caracteres\n- 1 letra maiúscula\n- 1 letra minúscula\n- 1 número\n- 1 caractere especial');
-        inputSenha.focus();
-        e.preventDefault();
-        return;
-      }
-    });
   </script>
+  
 </body>
 </html>

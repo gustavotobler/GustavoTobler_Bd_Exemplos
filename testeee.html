@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vender UI com HUD de Categorias</title>
+  <style>
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Layout principal */
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Área de produtos */
+    .product-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .controls {
+      display: flex;
+      gap: .5rem;
+    }
+    .controls input[type="text"] {
+      flex: 1;
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .controls select, .controls button {
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+    }
+
+    /* Mini HUD de categorias */
+    .category-hud {
+      display: flex;
+      gap: .5rem;
+      padding: .5rem 0;
+      overflow-x: auto;
+    }
+    .category-hud button {
+      padding: .5rem 1rem;
+      border: 1px solid #2a9d8f;
+      border-radius: 20px;
+      background: white;
+      color: #2a9d8f;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .category-hud button.active {
+      background: #2a9d8f;
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: .5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card .info h4 {
+      font-size: .9rem;
+      margin-bottom: .5rem;
+    }
+    .card .info .price {
+      font-weight: bold;
+      color: #2a9d8f;
+    }
+
+    /* Sidebar do carrinho */
+    .sidebar {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+    }
+    .sidebar h3 { margin-bottom: 1rem; }
+    .cart-items { flex: 1; display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+    .cart-item { display: flex; justify-content: space-between; }
+    .cart-item span:first-child { flex: 1; }
+    .totals { border-top: 1px solid #eee; padding-top: 1rem; margin-bottom: 1rem; }
+    .totals div { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+    .btn-pay { display: block; width: 100%; padding: .75rem; background: #2a9d8f; color: white; text-align: center; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Painel de Produtos -->
+    <section class="product-panel">
+      <div class="controls">
+        <input type="text" placeholder="Nome ou código">
+        <button>🔄</button>
+        <button>⚡</button>
+      </div>
+      <!-- Mini HUD de Categorias -->
+      <div class="category-hud">
+        <button data-cat="all" class="active">Todas</button>
+        <button data-cat="cafe">Cafés</button>
+        <button data-cat="paes">Pães</button>
+        <button data-cat="bolos">Bolos</button>
+        <button data-cat="salgados">Salgados</button>
+      </div>
+      <div class="grid">
+        <!-- Exemplos de cards com data-category -->
+        <div class="card" data-category="cafe">
+          <img src="img/pixlr-image-generator-c21283c6-8475-4327-beb4-ba948ccf3526.png">
+          <div class="info"><h4>Café Expresso</h4><span class="price">R$ 5,00</span></div>
+        </div>
+        <div class="card" data-category="cafe">
+          <img src="img/pixlr-image-generator-7d899fcb-bd77-4588-91ef-3f9aa67b0f95.png">
+          <div class="info"><h4>Café ao Leite</h4><span class="price">R$ 4,00</span></div>
+        </div>
+        <div class="card" data-category="paes">
+          <img src="img/pao frances.jpg">
+          <div class="info"><h4>Pão Francês</h4><span class="price">R$ 17,99/kg</span></div>
+        </div>
+        <div class="card" data-category="paes">
+          <img src="img/pao australiano.webp">
+          <div class="info"><h4>Pão Australiano</h4><span class="price">R$ 8,99</span></div>
+        </div>
+        <div class="card" data-category="bolos">
+          <img src="img/bolochocolate.png">
+          <div class="info"><h4>Bolo Chocolate</h4><span class="price">R$ 8,00</span></div>
+        </div>
+        <div class="card" data-category="salgados">
+          <img src="img/pastel.jpg">
+          <div class="info"><h4>Pastel (Frango/Carne)</h4><span class="price">R$ 6,00</span></div>
+        </div>
+        <!-- mais cards... -->
+      </div>
+    </section>
+
+    <!-- Sidebar do Carrinho -->
+    <aside class="sidebar">
+      <h3>Carrinho</h3>
+      <div class="cart-items">
+        <div class="cart-item"><span>1x Café com leite</span><span>R$ 5,35</span></div>
+        <div class="cart-item"><span>3x Cookies chocolate</span><span>R$ 12,00</span></div>
+        <div class="cart-item"><span>1x Suco morango</span><span>R$ 6,00</span></div>
+      </div>
+      <div class="totals">
+        <div><span>Subtotal:</span><span>R$ 23,35</span></div>
+        <div><span>Taxa balcão:</span><span>R$ 10,00</span></div>
+      </div>
+      <div class="btn-pay">Ir para pagamento →</div>
+    </aside>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector('.controls input[type="text"]');
+      const cards = document.querySelectorAll('.grid .card');
+      const hudButtons = document.querySelectorAll('.category-hud button');
+
+      // Filtro por busca
+      searchInput.addEventListener('input', () => {
+        const term = searchInput.value.toLowerCase();
+        cards.forEach(card => {
+          const title = card.querySelector('h4').textContent.toLowerCase();
+          const matchText = title.includes(term);
+          const activeCat = document.querySelector('.category-hud button.active').dataset.cat;
+          const matchCat = (activeCat === 'all') || (card.dataset.category === activeCat);
+          card.style.display = (matchText && matchCat) ? '' : 'none';
+        });
+      });
+
+      // Filtro por categoria
+      hudButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          hudButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.dataset.cat;
+          cards.forEach(card => {
+            const matchText = card.querySelector('h4').textContent.toLowerCase().includes(searchInput.value.toLowerCase());
+            const matchCat = (cat === 'all') || (card.dataset.category === cat);
+            card.style.display = (matchText && matchCat) ? '' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

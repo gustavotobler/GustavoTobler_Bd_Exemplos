@@ -229,5 +229,24 @@
     </aside>
 
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector('.controls input[type="text"]');
+      const cards = document.querySelectorAll('.grid .card');
+  
+      searchInput.addEventListener('input', () => {
+        const term = searchInput.value.toLowerCase();
+  
+        cards.forEach(card => {
+          const title = card.querySelector('h4')?.textContent.toLowerCase() || '';
+          const code = card.querySelector('h4')?.textContent.toLowerCase() || '';
+  
+          const match = title.includes(term) || code.includes(term);
+          card.style.display = match ? '' : 'none';
+        });
+      });
+    });
+  </script>
+  
 </body>
 </html>

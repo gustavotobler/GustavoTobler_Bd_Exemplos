@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cadastro de Produto</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      }
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -28,7 +28,6 @@
       width: 100%;
       background-color: #ffffff;
       padding: 30px;
-
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
@@ -38,7 +37,7 @@
       margin-bottom: 24px;
       background-color: #dee2e6;
       border-radius: 6px;
-      padding: 8PX;
+      padding: 8px;
       color: #343a40;
       font-size: 24px;
     }
@@ -69,8 +68,7 @@
     }
 
     .input-group input,
-    .input-group select,
-    .input-group textarea {
+    .input-group select {
       padding: 10px 12px;
       border: 1px solid #ced4da;
       border-radius: 6px;
@@ -81,8 +79,7 @@
     }
 
     .input-group input:focus,
-    .input-group select:focus,
-    .input-group textarea:focus {
+    .input-group select:focus {
       outline: 2px solid #6666ff;
       background-color: #f0f8ff;
     }
@@ -106,6 +103,7 @@
     .btn-container button:hover {
       background-color: #5a6268;
     }
+
     .back-button {
       position: absolute;
       left: 20px;
@@ -115,6 +113,57 @@
       font-size: 28px;
       cursor: pointer;
       color: #333;
+    }
+
+    /* Estilo do modal */
+    #confirmacao {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #confirmacao .box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #confirmacao img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    #confirmacao h2 {
+      color: #28a745;
+      margin-bottom: 10px;
+    }
+
+    #confirmacao p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    #confirmacao button {
+      padding: 10px 24px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    #confirmacao button:hover {
+      background-color: #218838;
     }
   </style>
 </head>
@@ -126,38 +175,37 @@
       window.location.href = "inicial2.html";
     }
   </script>
-  
-  
+
   <div class="page">
     <div class="form-box">
-        <a href="produtos.html">
+      <a href="produtos.html">
         <button class="back-button"><span class="material-icons">arrow_back</span></button>
-        </a>
+      </a>
       <h2>Cadastro de Produto</h2>
-      <form>
+      <form id="formCadastro">
         <div class="row">
           <div class="input-group">
             <label for="nome">Nome do Produto</label>
-            <input type="text" id="nome" name="nome">
+            <input type="text" id="nome" name="nome" />
           </div>
           <div class="input-group">
             <label for="preco">Preço</label>
-            <input type="number" id="preco" name="preco" step="0.01" min="0.10">
+            <input type="number" id="preco" name="preco" step="0.01" min="0.10" />
           </div>
         </div>
         <div class="row">
           <div class="input-group">
             <label for="Unidade Medida">Unidade M.</label>
             <select id="escolha" name="escolha">
-               <option value="">Selecione</option>
-               <option value="kg">kg</option>
-               <option value="g">g</option>
-               <option value="mL">mL</option>
-               <option value="L">L</option>
+              <option value="">Selecione</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="mL">mL</option>
+              <option value="L">L</option>
             </select>
           </div>
           <div class="input-group">
-            <label for="categoria">FORNECEDOR</label>       
+            <label for="categoria">FORNECEDOR</label>
             <select id="categoria" name="categoria">
               <option value="">Selecione</option>
               <option value="padaria">CARLINHOS</option>
@@ -169,7 +217,7 @@
         </div>
         <div class="row">
           <div class="input-group" style="flex: 1 1 100%">
-            <label for="descricao">VALIDADE</label>
+            <label for="validade">VALIDADE</label>
             <input type="date" id="validade" name="validade" />
           </div>
         </div>
@@ -179,5 +227,38 @@
       </form>
     </div>
   </div>
+
+  <!-- Modal de confirmação -->
+  <div id="confirmacao">
+    <div class="box">
+      <img src="confirmado.png" alt="Sucesso" />
+      <h2>Tudo certo!</h2>
+      <p>Cadastro realizado com sucesso</p>
+      <button onclick="fecharConfirmacao()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("formCadastro").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const nome = document.getElementById("nome").value.trim();
+      const preco = document.getElementById("preco").value.trim();
+      const escolha = document.getElementById("escolha").value;
+      const categoria = document.getElementById("categoria").value;
+      const validade = document.getElementById("validade").value;
+
+      if (nome && preco && escolha && categoria && validade) {
+        document.getElementById("confirmacao").style.display = "flex";
+      } else {
+        alert("Por favor, preencha todos os campos antes de cadastrar.");
+      }
+    });
+
+    function fecharConfirmacao() {
+      document.getElementById("confirmacao").style.display = "none";
+      document.getElementById("formCadastro").reset();
+    }
+  </script>
 </body>
 </html>
+  

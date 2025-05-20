@@ -6,165 +6,57 @@
   <title>Cadastro de Produto</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #e0e0e0;
-      color: #212529;
-      padding: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #e0e0e0; color: #212529;
+      padding: 30px; display: flex; justify-content: center; align-items: center;
       min-height: 100vh;
     }
-
-    .page {
-      max-width: 800px;
-      width: 100%;
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
+    .page { max-width: 800px; width: 100%; background-color: #ffffff; padding: 30px; border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
-
-    .form-box h2 {
-      text-align: center;
-      margin-bottom: 24px;
-      background-color: #dee2e6;
-      border-radius: 6px;
-      padding: 8px;
-      color: #343a40;
-      font-size: 24px;
+    .form-box h2 { text-align: center; margin-bottom: 24px; background-color: #dee2e6;
+      border-radius: 6px; padding: 8px; color: #343a40; font-size: 24px;
     }
-
-    .form-box form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .form-box form { display: flex; flex-direction: column; gap: 20px; }
+    .row { display: flex; gap: 20px; flex-wrap: wrap; }
+    .input-group { flex: 1; min-width: 250px; display: flex; flex-direction: column; }
+    .input-group label { font-weight: 600; margin-bottom: 6px; color: #495057; }
+    .input-group input, .input-group select { padding: 10px 12px; border: 1px solid #ced4da;
+      border-radius: 6px; font-size: 15px; color: #495057; background-color: #ffffff; outline: none;
     }
-
-    .row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+    .input-group input:focus, .input-group select:focus { outline: 2px solid #6666ff; background-color: #f0f8ff; }
+    .btn-container { display: flex; justify-content: center; }
+    .btn-container button { padding: 12px 32px; font-size: 16px; background-color: #6c757d;
+      color: #ffffff; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.2s;
     }
-
-    .input-group {
-      flex: 1;
-      min-width: 250px;
-      display: flex;
-      flex-direction: column;
+    .btn-container button:hover { background-color: #5a6268; }
+    .back-button { position: absolute; left: 20px; top: 20px; background: none; border: none;
+      font-size: 28px; cursor: pointer; color: #333;
     }
-
-    .input-group label {
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #495057;
+    /* Estilo de erro/modal */
+    .mensagem-erro { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background-color: #ffffff; color: #6c757d; border: 1px solid #ffffff62;
+      padding: 20px 30px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      z-index: 9999; display: none; max-width: 400px; text-align: left; font-size: 15px;
     }
-
-    .input-group input,
-    .input-group select {
-      padding: 10px 12px;
-      border: 1px solid #ced4da;
-      border-radius: 6px;
-      font-size: 15px;
-      color: #495057;
-      background-color: #ffffff;
-      outline: none;
+    .mensagem-erro strong { display: block; margin-bottom: 10px; font-size: 16px; }
+    .mensagem-erro button { margin-top: 12px; padding: 6px 12px; border: none;
+      background-color: #808d8b00; color: rgb(255, 0, 0); border-radius: 4px; cursor: pointer;
     }
-
-    .input-group input:focus,
-    .input-group select:focus {
-      outline: 2px solid #6666ff;
-      background-color: #f0f8ff;
+    /* modal de sucesso */
+    #confirmacao { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; z-index: 9998;
     }
-
-    .btn-container {
-      display: flex;
-      justify-content: center;
+    #confirmacao .box { background: white; padding: 40px; border-radius: 10px;
+      text-align: center; box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
-
-    .btn-container button {
-      padding: 12px 32px;
-      font-size: 16px;
-      background-color: #6c757d;
-      color: #ffffff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s;
+    #confirmacao h2 { color: #28a745; margin-bottom: 10px; }
+    #confirmacao p { color: #555; margin-bottom: 20px; }
+    #confirmacao button { padding: 10px 24px; background-color: #28a745; color: white;
+      border: none; border-radius: 6px; cursor: pointer; font-size: 15px;
     }
-
-    .btn-container button:hover {
-      background-color: #5a6268;
-    }
-
-    .back-button {
-      position: absolute;
-      left: 20px;
-      top: 20px;
-      background: none;
-      border: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    /* Estilo do modal */
-    #confirmacao {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    #confirmacao .box {
-      background: white;
-      padding: 40px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
-
-    #confirmacao img {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-
-    #confirmacao h2 {
-      color: #28a745;
-      margin-bottom: 10px;
-    }
-
-    #confirmacao p {
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    #confirmacao button {
-      padding: 10px 24px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    #confirmacao button:hover {
-      background-color: #218838;
-    }
+    #confirmacao button:hover { background-color: #218838; }
   </style>
 </head>
 <body>
@@ -178,9 +70,7 @@
 
   <div class="page">
     <div class="form-box">
-      <a href="produtos.html">
-        <button class="back-button"><span class="material-icons">arrow_back</span></button>
-      </a>
+      <a href="produtos.html"><button class="back-button"><span class="material-icons">arrow_back</span></button></a>
       <h2>Cadastro de Produto</h2>
       <form id="formCadastro">
         <div class="row">
@@ -195,70 +85,91 @@
         </div>
         <div class="row">
           <div class="input-group">
-            <label for="Unidade Medida">Unidade M.</label>
+            <label for="escolha">Unidade M.</label>
             <select id="escolha" name="escolha">
-              <option value="">Selecione</option>
-              <option value="kg">kg</option>
-              <option value="g">g</option>
-              <option value="mL">mL</option>
-              <option value="L">L</option>
+              <option value="">Selecione</option><option value="kg">kg</option><option value="g">g</option>
+              <option value="mL">mL</option><option value="L">L</option>
             </select>
           </div>
           <div class="input-group">
             <label for="categoria">FORNECEDOR</label>
             <select id="categoria" name="categoria">
-              <option value="">Selecione</option>
-              <option value="padaria">CARLINHOS</option>
-              <option value="laticinio">BOLOS MAIDEN</option>
-              <option value="hortifruti">DOCES MARIA</option>
+              <option value="">Selecione</option><option value="padaria">CARLINHOS</option>
+              <option value="laticinio">BOLOS MAIDEN</option><option value="hortifruti">DOCES MARIA</option>
               <option value="bebidas">DONA BENTA</option>
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="input-group" style="flex: 1 1 100%">
-            <label for="validade">VALIDADE</label>
-            <input type="date" id="validade" name="validade" />
-          </div>
+        <div class="input-group" style="flex:1 1 100%">
+          <label for="validade">VALIDADE</label>
+          <input type="text" id="validade" name="validade" placeholder="DD/MM/AAAA" maxlength="10" oninput="formatarData(this)" required />
         </div>
-        <div class="btn-container">
-          <button type="submit">Cadastrar</button>
-        </div>
+        <div class="btn-container"><button type="submit">Cadastrar</button></div>
       </form>
     </div>
   </div>
 
-  <!-- Modal de confirmação -->
-  <div id="confirmacao">
-    <div class="box">
-      <img src="confirmado.png" alt="Sucesso" />
-      <h2>Tudo certo!</h2>
-      <p>Cadastro realizado com sucesso</p>
-      <button onclick="fecharConfirmacao()">OK</button>
-    </div>
+  <!-- Mensagem de erro genérica -->
+  <div class="mensagem-erro" id="mensagem-erro">
+    <strong id="erro-titulo"></strong>
+    <p id="erro-texto"></p>
+    <button onclick="fecharErro()">OK</button>
   </div>
+  <!-- Modal de sucesso -->
+  <div id="confirmacao"><div class="box"><h2>Tudo certo!</h2><p>Cadastro realizado com sucesso</p><button onclick="fecharConfirmacao()">OK</button></div></div>
 
   <script>
-    document.getElementById("formCadastro").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const nome = document.getElementById("nome").value.trim();
-      const preco = document.getElementById("preco").value.trim();
-      const escolha = document.getElementById("escolha").value;
-      const categoria = document.getElementById("categoria").value;
-      const validade = document.getElementById("validade").value;
+    function formatarData(input) {
+      let v = input.value.replace(/\D/g, '').slice(0,8);
+      if (v.length >= 5) v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3');
+      else if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+      input.value = v;
+    }
+    function showError(titulo, texto) {
+      document.getElementById('erro-titulo').innerText = titulo;
+      document.getElementById('erro-texto').innerText = texto;
+      document.getElementById('mensagem-erro').style.display = 'block';
+    }
+    function fecharErro() {
+      document.getElementById('mensagem-erro').style.display = 'none';
+    }
 
-      if (nome && preco && escolha && categoria && validade) {
-        document.getElementById("confirmacao").style.display = "flex";
-      } else {
-        alert("Por favor, preencha todos os campos antes de cadastrar.");
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('formCadastro');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nome      = document.getElementById('nome').value.trim();
+        const precoVal  = parseFloat(document.getElementById('preco').value);
+        const escolha   = document.getElementById('escolha').value;
+        const categoria = document.getElementById('categoria').value;
+        const valStr    = document.getElementById('validade').value.trim();
+
+        if (!nome) { showError('Nome inválido','O nome do produto é obrigatório.'); return; }
+        if (nome.length < 3) { showError('Nome muito curto','O nome deve ter ao menos 3 caracteres.'); return; }
+
+        if (isNaN(precoVal)) { showError('Preço inválido','Informe um preço válido.'); return; }
+        if (precoVal < 0.10) { showError('Preço muito baixo','O preço mínimo é R$ 0,10.'); return; }
+
+        if (!escolha) { showError('Unidade não selecionada','Escolha uma unidade de medida.'); return; }
+        if (!categoria) { showError('Fornecedor não selecionado','Selecione um fornecedor.'); return; }
+
+        // valida data
+        const partes = valStr.split('/');
+        if (partes.length !== 3) { showError('Data inválida','Use o formato DD/MM/AAAA na validade.'); return; }
+        const [dd, mm, yyyy] = partes.map(n=>parseInt(n,10));
+        if ([dd,mm,yyyy].some(isNaN) || dd<1||dd>31||mm<1||mm>12) {
+          showError('Data inválida','Verifique dia e mês da validade.'); return;
+        }
+        const dataVal = new Date(yyyy,mm-1,dd), hoje=new Date(); hoje.setHours(0,0,0,0);
+        if (dataVal < hoje) { showError('Data anterior','Validade não pode ser anterior a hoje.'); return; }
+
+        document.getElementById('confirmacao').style.display='flex';
+      });
     });
-
     function fecharConfirmacao() {
-      document.getElementById("confirmacao").style.display = "none";
-      document.getElementById("formCadastro").reset();
+      document.getElementById('confirmacao').style.display='none';
+      document.getElementById('formCadastro').reset();
     }
   </script>
 </body>
 </html>
-  

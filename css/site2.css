@@ -71,6 +71,7 @@ body {
           transition: background 0.3s; 
         }
 .sidebar a:hover { 
+                border-radius: 10px;
                 background-color: var(--hover-bg); 
               }
 .main-content { 

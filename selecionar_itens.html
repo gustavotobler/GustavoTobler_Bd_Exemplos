@@ -116,6 +116,81 @@
     .totals { border-top: 1px solid #eee; padding-top: 1rem; margin-bottom: 1rem; }
     .totals div { display: flex; justify-content: space-between; margin-bottom: .5rem; }
     .btn-pay { display: block; width: 100%; padding: .75rem; background: #2a9d8f; color: white; text-align: center; border-radius: 4px; cursor: pointer; }
+
+    .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item .item-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Botões de quantidade */
+.qty-btn {
+  background: none;
+  border: 1px solid #2a9d8f;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.qty {
+  width: 24px;
+  text-align: center;
+  display: inline-block;
+}
+
+.item-subtotal {
+  font-weight: bold;
+}
+
+.card .info {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.add-to-cart {
+  background: #2a9d8f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: .25rem .5rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.add-to-cart:hover {
+  background: #237c6f;}
+
+  /* empilha título + rodapé */
+.card .info {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* alinha preço à esquerda e o + à direita */
+.card .info-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* estilo do botão + */
+.card .info-footer .add-to-cart {
+  background: #2a9d8f;
+  color: #fff;
+  border: none;
+  padding: .25rem .5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -132,6 +207,7 @@
       <div class="category-hud">
         <button data-cat="all" class="active">Todas</button>
         <button data-cat="cafe">Cafés</button>
+        <button data-cat="sucos">Sucos</button>
         <button data-cat="paes">Pães</button>
         <button data-cat="bolos">Bolos</button>
         <button data-cat="salgados">Salgados</button>
@@ -139,67 +215,222 @@
       <div class="grid">
         <div class="card" data-category="cafe">
           <img src="img/pixlr-image-generator-c21283c6-8475-4327-beb4-ba948ccf3526.png">
-          <div class="info"><h4>Café Expresso</h4><span class="price">R$ 5,00</span></div>
+          <div class="info">
+            <h4>Café Expresso</h4>
+            <div class="info-footer">
+              <span class="price">R$ 5,00</span>
+              <button class="add-to-cart" data-name="Café Expresso" data-price="5.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="cafe">
           <img src="img/pixlr-image-generator-7d899fcb-bd77-4588-91ef-3f9aa67b0f95.png">
-          <div class="info"><h4>Café ao Leite</h4><span class="price">R$ 4,00</span></div>
+          <div class="info">
+            <h4>Café ao Leite</h4>
+            <div class="info-footer">
+              <span class="price">R$ 4,00</span>
+              <button class="add-to-cart" data-name="Café ao Leite" data-price="4.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="cafe">
           <img src="img/pixlr-image-generator-a434292a-580e-4b41-97da-993174cffbb4.png">
-          <div class="info"><h4>Café Americano</h4><span class="price">R$ 4,00</span></div>  
+          <div class="info">
+            <h4>Café Americano</h4>
+            <div class="info-footer">
+              <span class="price">R$ 4,00</span>
+              <button class="add-to-cart" data-name="Café Americano" data-price="4.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="cafe">
           <img src="img/pixlr-image-generator-d82c58d6-8009-4456-94c1-940ab4741b1d.png">
-          <div class="info"><h4>Café Latte</h4><span class="price">R$ 5,00</span></div> 
+          <div class="info">
+            <h4>Café Latte</h4>
+            <div class="info-footer">
+              <span class="price">R$ 5,00</span>
+              <button class="add-to-cart" data-name="Café Latte" data-price="5.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="paes">
           <img src="img/pao frances.jpg">
-          <div class="info"><h4>Pão Francês</h4><span class="price">R$ 17,99/kg</span></div>
+          <div class="info">
+            <h4>Pão Francês</h4>
+            <div class="info-footer">
+              <span class="price">R$ 17,99 (kg)</span>
+              <button class="add-to-cart" data-name="Pão Francês (kg)" data-price="17.99">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="paes">
           <img src="img/pão massinha.jpg">
-          <div class="info"><h4>Pão Massinha</h4><span class="price">R$ 20,99/kg</span></div>
+          <div class="info">
+            <h4>Pão Massinha</h4>
+            <div class="info-footer">
+              <span class="price">R$ 20,99 (kg)</span>
+              <button class="add-to-cart" data-name="Pão Massinha (kg)" data-price="20.99">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="paes">
           <img src="img/paofatiado.avif">
-          <div class="info"><h4>Pão Fatiado</h4><span class="price">R$ 7,99</span></div>
+          <div class="info">
+            <h4>Pão Fatiado</h4>
+            <div class="info-footer">
+              <span class="price">R$ 7,99</span>
+              <button class="add-to-cart" data-name="Pão Fatiado" data-price="7.99">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="paes">
           <img src="img/pao australiano.webp">
-          <div class="info"><h4>Pão Australiano</h4><span class="price">R$ 8,99</span></div>
+          <div class="info">
+            <h4>Pão Australiano</h4>
+            <div class="info-footer">
+              <span class="price">R$ 8,99</span>
+              <button class="add-to-cart" data-name="Pão Australiano" data-price="8.99">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="bolos">
           <img src="img/bolochocolate.png">
-          <div class="info"><h4>Bolo Chocolate (Fatia)</h4><span class="price">R$ 8,00</span></div>
+          <div class="info">
+            <h4>Bolo Chocolate (Fatia)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 8,00</span>
+              <button class="add-to-cart" data-name="Bolo Chocolate (Fatia)" data-price="8.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="bolos">
           <img src="img/bolomorango.png">
-          <div class="info"><h4>Bolo Morango (Fatia)</h4><span class="price">R$ 9,00</span></div>
+          <div class="info">
+            <h4>Bolo Morango (Fatia)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 9,00</span>
+              <button class="add-to-cart" data-name="Bolo Morango (Fatia)" data-price="9.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="bolos">
           <img src="img/bolochocolatecenoura.webp">
-          <div class="info"><h4>Bolo Cenoura (Fatia)</h4><span class="price">R$ 8,00</span></div>
+          <div class="info">
+            <h4>Bolo Cenoura (Fatia)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 8,00</span>
+              <button class="add-to-cart" data-name="Bolo Cenoura (Fatia)" data-price="8.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="bolos">
           <img src="img/boloprestigio.jpg">
-          <div class="info"><h4>Bolo Prestigío (Fatia)</h4><span class="price">R$ 9,00</span></div>
+          <div class="info">
+            <h4>Bolo Prestigío (Fatia)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 9,00</span>
+              <button class="add-to-cart" data-name="Bolo Prestigío (Fatia)" data-price="9.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="salgados">
           <img src="img/pastel.jpg">
-          <div class="info"><h4>Pastel (Frango/Carne)</h4><span class="price">R$ 6,00</span></div>
+          <div class="info">
+            <h4>Pastel (Frango/Carne)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Pastel (Frango/Carne)" data-price="6.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="salgados">
           <img src="img/coxinhaaa.jpg">
-          <div class="info"><h4>Coxinha (Frango/Carne)</h4><span class="price">R$ 3,00</span></div>
+          <div class="info">
+            <h4>Coxinha (Frango/Carne)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 3,00</span>
+              <button class="add-to-cart" data-name="Coxinha (Frango/Carne)" data-price="3.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="salgados">
           <img src="img/minipizza.jpg">
-          <div class="info"><h4>Minipizza (Calabresa)</h4><span class="price">R$ 7,00</span></div>
+          <div class="info">
+            <h4>Minipizza (Calabresa)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 7,00</span>
+              <button class="add-to-cart" data-name="Minipizza (Calabresa)" data-price="7.00">＋</button>
+            </div>
+          </div>
         </div>
+      
         <div class="card" data-category="salgados">
           <img src="img/folhado.webp">
-          <div class="info"><h4>Folhado (Frango/Carne)</h4><span class="price">R$ 6,00</span></div>
+          <div class="info">
+            <h4>Folhado (Frango/Carne)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Folhado (Frango/Carne)" data-price="6.00">＋</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card" data-category="sucos">
+          <img src="img/sucolaranjaa.png">
+          <div class="info">
+            <h4>Laranja (300ml)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Laranja (300ml)" data-price="6.00">＋</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card" data-category="sucos">
+          <img src="img/sucouva.png">
+          <div class="info">
+            <h4>Uva (300ml)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Uva (300ml)" data-price="6.00">＋</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card" data-category="sucos">
+          <img src="img/sucomorango.png">
+          <div class="info">
+            <h4>Morango (300ml)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Morango (300ml)" data-price="6.00">＋</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card" data-category="sucos">
+          <img src="img/limonada.png">
+          <div class="info">
+            <h4>Limonada (300ml)</h4>
+            <div class="info-footer">
+              <span class="price">R$ 6,00</span>
+              <button class="add-to-cart" data-name="Limonada (300ml)" data-price="6.00">＋</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -208,51 +439,140 @@
     <aside class="sidebar">
       <h3>Carrinho</h3>
       <div class="cart-items">
-        <div class="cart-item"><span>1x Café com leite</span><span>R$ 5,35</span></div>
-        <div class="cart-item"><span>3x Cookies chocolate</span><span>R$ 12,00</span></div>
-        <div class="cart-item"><span>1x Suco morango</span><span>R$ 6,00</span></div>
       </div>
       <div class="totals">
-        <div><span>Subtotal:</span><span>R$ 23,35</span></div>
-        <div><span>Taxa balcão:</span><span>R$ 10,00</span></div>
+        <div>
+          <span>Subtotal:</span>
+          <span>R$ 0,00</span>
+        </div>
+        <div>
+          <span>Taxa balcão:</span>
+          <span>R$ 0,00</span>
+        </div>
       </div>
-      <div class="btn-pay">Ir para pagamento →</div>
+    
+      <div class="btn-pay">Ir para pagamento → (Total: R$ 0,00)</div>
     </aside>
-
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const searchInput = document.querySelector('.controls input[type="text"]');
-      const cards = document.querySelectorAll('.grid .card');
-      const hudButtons = document.querySelectorAll('.category-hud button');
-
-      // Filtro por busca
+      // ELEMENTOS
+      const searchInput         = document.querySelector('.controls input[type="text"]');
+      const cards               = document.querySelectorAll('.grid .card');
+      const hudButtons          = document.querySelectorAll('.category-hud button');
+      const cartItemsContainer  = document.querySelector('.cart-items');
+      const totalsSubtotalEl    = document.querySelector('.totals div:first-child span:last-child');
+      const totalsTaxEl         = document.querySelector('.totals div:nth-child(2) span:last-child');
+      const btnPay              = document.querySelector('.btn-pay');
+    
+      // FORMATAÇÃO DE MOEDA
+      function formatReal(v) {
+        return 'R$ ' + v.toFixed(2).replace('.', ',');
+      }
+    
+      // ATUALIZA TODOS OS TOTAIS
+      function updateTotals() {
+        let sub = 0;
+        cartItemsContainer.querySelectorAll('.cart-item').forEach(item => {
+          const price = parseFloat(item.dataset.price);
+          const qty   = parseInt(item.querySelector('.qty').textContent, 10);
+          const itemSub = price * qty;
+          item.querySelector('.item-subtotal').textContent = formatReal(itemSub);
+          sub += itemSub;
+        });
+        totalsSubtotalEl.textContent = formatReal(sub);
+    
+        // TAXA FIXA — ajuste ou remova conforme desejar
+        const tax = parseFloat(totalsTaxEl.dataset.tax || 0);
+        totalsTaxEl.textContent = formatReal(tax);
+    
+        btnPay.textContent = `Ir para pagamento → (Total: ${formatReal(sub + tax)})`;
+      }
+    
+      // 1) FILTRO DE BUSCA
       searchInput.addEventListener('input', () => {
         const term = searchInput.value.toLowerCase();
+        const activeCat = document.querySelector('.category-hud button.active').dataset.cat;
         cards.forEach(card => {
-          const title = card.querySelector('h4').textContent.toLowerCase();
+          const title    = card.querySelector('h4').textContent.toLowerCase();
           const matchText = title.includes(term);
-          const activeCat = document.querySelector('.category-hud button.active').dataset.cat;
-          const matchCat = (activeCat === 'all') || (card.dataset.category === activeCat);
+          const matchCat  = (activeCat === 'all') || (card.dataset.category === activeCat);
           card.style.display = (matchText && matchCat) ? '' : 'none';
         });
       });
-
-      // Filtro por categoria
+    
+      // 2) FILTRO DE CATEGORIA
       hudButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           hudButtons.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          const cat = btn.dataset.cat;
-          cards.forEach(card => {
-            const matchText = card.querySelector('h4').textContent.toLowerCase().includes(searchInput.value.toLowerCase());
-            const matchCat = (cat === 'all') || (card.dataset.category === cat);
-            card.style.display = (matchText && matchCat) ? '' : 'none';
-          });
+          // reaplica filtro de busca + categoria
+          searchInput.dispatchEvent(new Event('input'));
         });
       });
+    
+      // 3) CONTROLE DE +/− NA SIDEBAR (delegation)
+      cartItemsContainer.addEventListener('click', e => {
+        const itemEl = e.target.closest('.cart-item');
+        if (!itemEl) return;
+    
+        if (e.target.matches('.increase')) {
+          const qtyEl = itemEl.querySelector('.qty');
+          qtyEl.textContent = parseInt(qtyEl.textContent, 10) + 1;
+          updateTotals();
+        }
+    
+        if (e.target.matches('.decrease')) {
+          const qtyEl = itemEl.querySelector('.qty');
+          let q = parseInt(qtyEl.textContent, 10) - 1;
+          if (q <= 0) {
+            itemEl.remove();
+          } else {
+            qtyEl.textContent = q;
+          }
+          updateTotals();
+        }
+      });
+    
+      // 4) BOTÃO “＋” NOS CARDS
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name  = btn.dataset.name;
+          const price = btn.dataset.price;
+          // procura item já existente
+          let existing = Array.from(cartItemsContainer.children)
+            .find(el => el.querySelector('.item-name').textContent === name);
+    
+          if (existing) {
+            // incrementa só +1
+            const qtyEl = existing.querySelector('.qty');
+            qtyEl.textContent = parseInt(qtyEl.textContent, 10) + 1;
+          } else {
+            // cria nova linha
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.dataset.price = price;
+            div.innerHTML = `
+              <div class="item-info">
+                <button class="qty-btn decrease">−</button>
+                <span class="qty">1</span>
+                <button class="qty-btn increase">＋</button>
+                <span class="item-name">${name}</span>
+              </div>
+              <span class="item-subtotal">${formatReal(parseFloat(price))}</span>
+            `;
+            cartItemsContainer.appendChild(div);
+          }
+    
+          updateTotals();
+        });
+      });
+    
+      // 5) INICIALIZAÇÃO
+      updateTotals();
     });
-  </script>
+    </script>
+
 </body>
 </html>
